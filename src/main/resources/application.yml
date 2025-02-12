@@ -1,0 +1,17 @@
+server:
+ servlet:
+  context-path: /neo-lesson-mgmt
+ port: 9527
+
+logging:
+ level:
+  com:
+   postgres:
+    mapper: debug
+
+spring:
+ datasource:
+   driver-class-name: org.postgresql.Driver
+   jdbcUrl: jdbc:postgresql://47.107.248.50:5432/postgres
+   username: postgres
+   password: neo

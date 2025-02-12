@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neo.lesson.mapper.LessonMapper">
+    <!--插入课程数据-->
+    <insert id="insertLesson" useGeneratedKeys="true" keyColumn="id" keyProperty="lesson.id">
+        INSERT INTO t_lesson (
+            lesson_code,
+            name,
+            remark,
+            create_user,
+            create_time
+        ) VALUES (
+            #{lesson.lessonCode},
+            #{lesson.name},
+            #{lesson.remark},
+            #{lesson.createUser},
+            #{lesson.createTime}
+        )
+    </insert>
+
+    <!--查询课程数量-->
+    <select id="queryLessonAmount" resultType="java.lang.Integer">
+        SELECT count(1) as num FROM t_lesson
+    </select>
+
+    <!--分页查询课程数据-->
+    <resultMap id="lessonResult" type="com.neo.lesson.model.Lesson">
+        <id property="id"               column="id"/>
+        <result property="lessonCode"   column="lesson_code"/>
+        <result property="name"         column="name"/>
+        <result property="remark"       column="remark"/>
+        <result property="createUser"   column="create_user"/>
+        <result property="createTime"   column="create_time"/>
+        <result property="updateUser"   column="update_user"/>
+        <result property="updateTime"   column="update_time"/>
+    </resultMap>
+
+    <select id="queryLessonByPage" resultMap="lessonResult">
+        SELECT id,
+            lesson_code,
+            name,
+            remark,
+            create_user,
+            create_time,
+            update_user,
+            update_time
+        FROM t_lesson
+        ORDER BY id ASC
+        LIMIT #{amount} OFFSET #{offSet}
+    </select>
+</mapper>
