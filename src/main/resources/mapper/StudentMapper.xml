@@ -5,6 +5,7 @@
     <insert id="insertStudent" useGeneratedKeys="true" keyColumn="id" keyProperty="student.id">
         INSERT INTO t_student (
             student_code,
+            lesson_code,
             name,
             email,
             surplus_lesson_num,
@@ -13,6 +14,7 @@
             create_time
         ) VALUES (
             #{student.studentCode},
+            #{student.lessonCode},
             #{student.name},
             #{student.email},
             #{student.surplusLessonNum},
@@ -21,4 +23,70 @@
             #{student.createTime}
         )
     </insert>
+
+    <!--查询课程包含的总的学员数量-->
+    <select id="queryStudentAmount" resultType="java.lang.Integer">
+        SELECT count(1) as num
+        FROM t_student
+        WHERE less_code = #{lessonCode}
+    </select>
+
+    <!--查询学员数据-->
+    <resultMap id="studentMap" type="com.neo.lesson.model.Student">
+        <id property="id"                   column="id"/>
+        <result property="studentCode"      column="student_code"/>
+        <result property="lessonCode"       column="lesson_code"/>
+        <result property="name"             column="name"/>
+        <result property="email"            column="email"/>
+        <result property="surplusLessonNum" column="surplus_lesson_num"/>
+        <result property="createUser"       column="create_user"/>
+        <result property="createTime"       column="create_time"/>
+        <result property="updateUser"       column="update_user"/>
+        <result property="updateTime"       column="update_time"/>
+    </resultMap>
+    <select id="queryStudent" resultMap="studentMap">
+        SELECT id as id,
+            student_code as student_code,
+            lesson_code as lesson_code,
+            name as name,
+            email as email,
+            surplus_lesson_num as surplus_lesson_num,
+            create_user as create_user,
+            create_time as create_time,
+            update_user as update_user,
+            update_time as update_time
+        FROM t_student
+        WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
+    </select>
+
+    <!--分页查询学员数量-->
+    <select id="queryStudentByPage" resultMap="studentMap">
+        SELECT id as id,
+            student_code as student_code,
+            lesson_code as lesson_code,
+            name as name,
+            email as email,
+            surplus_lesson_num as surplus_lesson_num,
+            create_user as create_user,
+            create_time as create_time,
+            update_user as update_user,
+            update_time as update_time
+        FROM t_student
+        WHERE lesson_code = #{lessonCode}
+        ORDER BY id ASC
+        LIMIT #{amount} OFFSET #{offSet}
+    </select>
+
+    <!--删除课程下的学员数据-->
+    <delete id="deleteStudent">
+        DELETE FROM t_student
+        WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
+    </delete>
+
+    <!--更新剩余课时数量-->
+    <update id="updateSurplusLessonNum">
+        UPDATE t_student
+        SET surplus_lesson_num = #{lessonAmount}
+        WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
+    </update>
 </mapper>

@@ -48,4 +48,10 @@
         ORDER BY id ASC
         LIMIT #{amount} OFFSET #{offSet}
     </select>
+
+    <!--删除课程-->
+    <delete id="deleteLesson">
+        DELETE FROM t_lesson
+        WHERE lesson_code = #{lessonCode}
+    </delete>
 </mapper>

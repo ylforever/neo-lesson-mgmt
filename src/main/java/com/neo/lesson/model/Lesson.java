@@ -16,15 +16,15 @@ import lombok.Setter;
 @Setter
 @ApiModel(value = "课程对象模型")
 public class Lesson extends BaseModel {
-    @ApiModelProperty(value = "自增ID", example = "-1")
+    @ApiModelProperty(value = "自增ID")
     private int id = -1;
 
-    @ApiModelProperty(value = "课程唯一编码. uuid", example = "")
+    @ApiModelProperty(value = "课程唯一编码. uuid")
     private String lessonCode = "";
 
-    @ApiModelProperty(value = "课程名称", example = "")
+    @ApiModelProperty(value = "课程名称")
     private String name = "";
 
-    @ApiModelProperty(value = "备注", example = "")
+    @ApiModelProperty(value = "备注")
     private String remark = "";
 }

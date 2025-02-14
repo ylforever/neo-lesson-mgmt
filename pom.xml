@@ -100,6 +100,7 @@
 
     <!-- Package as an executable jar -->
     <build>
+        <finalName>neo-lesson-mgmt</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

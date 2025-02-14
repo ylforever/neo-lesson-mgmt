@@ -42,7 +42,7 @@ public class LessonService {
      * @param pageVO 分页条件
      * @return 查询结果
      */
-    public PageResult<Lesson> QueryLessonByPage(PageVO pageVO) {
+    public PageResult<Lesson> queryLessonByPage(PageVO pageVO) {
         // 1、查询总数
         int totalAmount = lessonMapper.queryLessonAmount();
 
@@ -51,5 +51,14 @@ public class LessonService {
         List<Lesson> lessonList = lessonMapper.queryLessonByPage(pageVO.getAmount(), offset);
 
         return PageResult.create(totalAmount, lessonList);
+    }
+
+    /**
+     * 删除课程
+     *
+     * @param lessonCode 课程编码
+     */
+    public void deleteLesson(String lessonCode) {
+        lessonMapper.deleteLesson(lessonCode);
     }
 }

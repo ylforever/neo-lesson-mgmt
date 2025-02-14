@@ -39,4 +39,11 @@ public interface LessonMapper {
      * @return 查询结果列表
      */
     List<Lesson> queryLessonByPage(@Param("amount") int amount, @Param("offSet") int offSet);
+
+    /**
+     * 删除课程
+     *
+     * @param lessonCode 课程编码
+     */
+    void deleteLesson(@Param("lessonCode") String lessonCode);
 }
