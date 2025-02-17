@@ -28,7 +28,7 @@
     <select id="queryStudentAmount" resultType="java.lang.Integer">
         SELECT count(1) as num
         FROM t_student
-        WHERE less_code = #{lessonCode}
+        WHERE lesson_code = #{lessonCode}
     </select>
 
     <!--查询学员数据-->

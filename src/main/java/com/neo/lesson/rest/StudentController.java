@@ -3,6 +3,7 @@ package com.neo.lesson.rest;
 import com.elon.base.model.PageResult;
 import com.elon.base.model.PageVO;
 import com.elon.base.model.ResultModel;
+import com.elon.base.rest.BaseController;
 import com.neo.lesson.model.Student;
 import com.neo.lesson.service.StudentService;
 import io.swagger.annotations.Api;
@@ -29,7 +30,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/v1/student")
 @Api(tags = "学员管理服务")
-public class StudentController {
+public class StudentController extends BaseController {
     private static final Logger LOGGER = LogManager.getLogger(StudentController.class);
 
     @Resource

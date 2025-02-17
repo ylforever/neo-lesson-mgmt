@@ -3,6 +3,7 @@ package com.neo.lesson.rest;
 import com.elon.base.model.PageResult;
 import com.elon.base.model.PageVO;
 import com.elon.base.model.ResultModel;
+import com.elon.base.rest.BaseController;
 import com.neo.lesson.model.Lesson;
 import com.neo.lesson.service.LessonService;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 课程管理服务
@@ -28,7 +30,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/v1/lesson")
 @Api(tags = "课程管理服务")
-public class LessonController {
+public class LessonController extends BaseController {
     private static final Logger LOGGER = LogManager.getLogger(LessonController.class);
 
     @Resource
@@ -54,21 +56,20 @@ public class LessonController {
     }
 
     /**
-     * 分页查询课程数据
+     * 查询课程列表
      *
-     * @param pageVO 分页条件
      * @return 查询结果
      */
-    @PostMapping("/query-lesson-by-page")
-    @ApiOperation(value = "分页查询课程数据")
-    @ApiImplicitParam(name = "pageVO", value = "分页条件")
-    public ResultModel<PageResult<Lesson>> queryLessonByPage(@RequestBody PageVO pageVO) {
+    @PostMapping("/query-lesson-list")
+    @ApiOperation(value = "课程列表")
+    public ResultModel<List<Lesson>> queryLessonList() {
         try {
-            PageResult<Lesson> lessonPageResult = lessonService.queryLessonByPage(pageVO);
-            return ResultModel.success(lessonPageResult);
+            String account = getUserAccount();
+            List<Lesson> lessonList = lessonService.queryLessonList(account);
+            return ResultModel.success(lessonList);
         } catch (Exception e) {
-            LOGGER.error("Query lesson by page fail. pageVO:{}", pageVO.toString(), e);
-            return ResultModel.fail("Query lesson by page fail");
+            LOGGER.error("Query lesson by page fail.", e);
+            return ResultModel.fail("Query lesson list fail");
         }
     }
 

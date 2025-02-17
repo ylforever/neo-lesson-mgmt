@@ -23,7 +23,7 @@
         SELECT count(1) as num FROM t_lesson
     </select>
 
-    <!--分页查询课程数据-->
+    <!--查询课程列表-->
     <resultMap id="lessonResult" type="com.neo.lesson.model.Lesson">
         <id property="id"               column="id"/>
         <result property="lessonCode"   column="lesson_code"/>
@@ -35,7 +35,7 @@
         <result property="updateTime"   column="update_time"/>
     </resultMap>
 
-    <select id="queryLessonByPage" resultMap="lessonResult">
+    <select id="queryLessonList" resultMap="lessonResult">
         SELECT id,
             lesson_code,
             name,
@@ -45,8 +45,8 @@
             update_user,
             update_time
         FROM t_lesson
+        WHERE create_user = #{userAccount}
         ORDER BY id ASC
-        LIMIT #{amount} OFFSET #{offSet}
     </select>
 
     <!--删除课程-->

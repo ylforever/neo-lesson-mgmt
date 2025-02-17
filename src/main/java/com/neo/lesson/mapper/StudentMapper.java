@@ -44,11 +44,11 @@ public interface StudentMapper {
      *
      * @param amount 查询数量
      * @param offSet 查询偏移数量
-     * @param lessCode 课程编码
+     * @param lessonCode 课程编码
      * @return 插叙结果列表
      */
     List<Student> queryStudentByPage(@Param("amount") int amount, @Param("offSet") int offSet,
-                                     @Param("lessCode") String lessCode);
+                                     @Param("lessonCode") String lessonCode);
 
     /**
      * 删除课程下的学员数据。

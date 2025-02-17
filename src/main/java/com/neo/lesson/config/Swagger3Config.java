@@ -51,13 +51,13 @@ public class Swagger3Config {
         List<RequestParameter> globalParamList = new ArrayList<>();
         RequestParameter account = new RequestParameterBuilder().name("account")
                 .in(ParameterType.HEADER)
-                .example(new ExampleBuilder().value("zh1234").build())
+                .example(new ExampleBuilder().value("neo").build())
                 .build();
         globalParamList.add(account);
 
         RequestParameter name = new RequestParameterBuilder().name("name")
                 .in(ParameterType.HEADER)
-                .example(new ExampleBuilder().value("zhang san").build())
+                .example(new ExampleBuilder().value("neo").build())
                 .build();
         globalParamList.add(name);
 

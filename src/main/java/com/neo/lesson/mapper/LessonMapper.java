@@ -34,11 +34,10 @@ public interface LessonMapper {
     /**
      * 分页查询课程数据
      *
-     * @param amount 查询数量
-     * @param offSet 偏移条数
+     * @param userAccount 用户账号
      * @return 查询结果列表
      */
-    List<Lesson> queryLessonByPage(@Param("amount") int amount, @Param("offSet") int offSet);
+    List<Lesson> queryLessonList(@Param("userAccount") String userAccount);
 
     /**
      * 删除课程

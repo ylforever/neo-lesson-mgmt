@@ -33,4 +33,7 @@ public class Student extends BaseModel {
 
     @ApiModelProperty(value = "剩余课数数量. 允许为负数(表示欠缴课时费)")
     private int surplusLessonNum = 0;
+
+    @ApiModelProperty(value = "备注")
+    private String remark = "";
 }

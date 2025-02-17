@@ -1,7 +1,6 @@
 package com.neo.lesson.service;
 
 import com.elon.base.model.PageResult;
-import com.elon.base.model.PageVO;
 import com.elon.base.util.StringUtil;
 import com.neo.lesson.mapper.LessonMapper;
 import com.neo.lesson.model.Lesson;
@@ -39,18 +38,11 @@ public class LessonService {
     /**
      * 分页查询课程数据
      *
-     * @param pageVO 分页条件
+     * @param userAccount 用户账号
      * @return 查询结果
      */
-    public PageResult<Lesson> queryLessonByPage(PageVO pageVO) {
-        // 1、查询总数
-        int totalAmount = lessonMapper.queryLessonAmount();
-
-        // 2、查询分页数据
-        int offset = (pageVO.getPageNo() - 1) * pageVO.getAmount();
-        List<Lesson> lessonList = lessonMapper.queryLessonByPage(pageVO.getAmount(), offset);
-
-        return PageResult.create(totalAmount, lessonList);
+    public List<Lesson> queryLessonList(String userAccount) {
+        return lessonMapper.queryLessonList(userAccount);
     }
 
     /**
