@@ -54,4 +54,22 @@
         DELETE FROM t_lesson
         WHERE lesson_code = #{lessonCode}
     </delete>
+
+    <!--获取课程编码名称列表-->
+    <resultMap id="lessonCodeNameResult" type="com.elon.base.model.MapQueryHelper">
+        <result property="key"   column="lesson_code"/>
+        <result property="value" column="name"/>
+    </resultMap>
+    <select id="queryLessonCodeNameList" resultMap="lessonCodeNameResult">
+        SELECT lesson_code, name
+        FROM t_lesson
+        WHERE create_user = #{account}
+    </select>
+
+    <!--查询课程名称-->
+    <select id="queryLessonName" resultType="java.lang.String">
+        SELECT distinct name
+        FROM t_lesson
+        WHERE lesson_code = #{lessonCode}
+    </select>
 </mapper>

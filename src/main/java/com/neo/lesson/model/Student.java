@@ -1,5 +1,6 @@
 package com.neo.lesson.model;
 
+import com.alibaba.fastjson.JSONObject;
 import com.elon.base.model.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,4 +37,9 @@ public class Student extends BaseModel {
 
     @ApiModelProperty(value = "备注")
     private String remark = "";
+
+    @Override
+    public String toString(){
+        return JSONObject.toJSONString(this);
+    }
 }

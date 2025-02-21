@@ -1,7 +1,5 @@
 package com.neo.lesson.rest;
 
-import com.elon.base.model.PageResult;
-import com.elon.base.model.PageVO;
 import com.elon.base.model.ResultModel;
 import com.elon.base.rest.BaseController;
 import com.neo.lesson.model.Lesson;
@@ -11,7 +9,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +27,7 @@ import java.util.List;
  * @author neo
  * @since 2025-02-12
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/v1/lesson")
 @Api(tags = "课程管理服务")
@@ -60,12 +61,16 @@ public class LessonController extends BaseController {
      *
      * @return 查询结果
      */
-    @PostMapping("/query-lesson-list")
+    @GetMapping("/query-lesson-list")
     @ApiOperation(value = "课程列表")
     public ResultModel<List<Lesson>> queryLessonList() {
         try {
             String account = getUserAccount();
+
+            LOGGER.info("Invoke queryLessonList begin. account:{}", account);
             List<Lesson> lessonList = lessonService.queryLessonList(account);
+            LOGGER.info("Invoke queryLessonList end. account:{}|lessonList size:{}", account, lessonList.size());
+
             return ResultModel.success(lessonList);
         } catch (Exception e) {
             LOGGER.error("Query lesson by page fail.", e);
@@ -83,7 +88,9 @@ public class LessonController extends BaseController {
     @ApiOperation(value = "删除课程")
     public ResultModel<String> deleteLesson(@PathVariable("lessonCode") String lessonCode){
         try {
+            LOGGER.info("Invoke deleteLesson begin lessonCode:{}", lessonCode);
             lessonService.deleteLesson(lessonCode);
+            LOGGER.info("Invoke deleteLesson end lessonCode:{}", lessonCode);
             return ResultModel.success(lessonCode);
         } catch (Exception e) {
             LOGGER.error("Delete lesson fail. lessCode:{}", lessonCode, e);
