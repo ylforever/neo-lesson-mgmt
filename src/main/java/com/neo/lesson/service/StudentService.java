@@ -1,23 +1,23 @@
 package com.neo.lesson.service;
 
-import com.elon.base.model.MapQueryHelper;
 import com.elon.base.model.PageResult;
 import com.elon.base.model.PageVO;
 import com.elon.base.util.StringUtil;
+import com.neo.lesson.constant.NeoConst;
 import com.neo.lesson.mapper.LessonMapper;
 import com.neo.lesson.mapper.StudentMapper;
+import com.neo.lesson.model.Email;
 import com.neo.lesson.model.Student;
 import com.neo.lesson.model.StudentVO;
+import com.neo.lesson.util.EmailService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 学员管理服务类
@@ -34,6 +34,9 @@ public class StudentService {
 
     @Resource
     private LessonMapper lessonMapper;
+
+    @Resource
+    private EmailService emailService;
 
     /**
      * 插入学员数据到数据库
@@ -106,6 +109,11 @@ public class StudentService {
 
         int oldLessonNum = student.getSurplusLessonNum();
         studentMapper.updateSurplusLessonNum(lessonCode, studentCode, oldLessonNum - lessonAmount);
+
+        // 2、发送邮件通知
+        Email email = buildUpdateLessonNumEmail(student, lessonAmount, oldLessonNum - lessonAmount, false);
+        emailService.sendMail(email);
+
         return oldLessonNum;
     }
 
@@ -127,6 +135,11 @@ public class StudentService {
 
         int oldLessonNum = student.getSurplusLessonNum();
         studentMapper.updateSurplusLessonNum(lessonCode, studentCode, oldLessonNum + lessonAmount);
+
+        // 发送通知邮件
+        Email email = buildUpdateLessonNumEmail(student, lessonAmount, oldLessonNum + lessonAmount, true);
+        emailService.sendMail(email);
+
         return oldLessonNum;
     }
 
@@ -151,5 +164,40 @@ public class StudentService {
         LOGGER.info("Update lesson num success. lessonCode:{}|studentCode:{}|oldLessonNum:{}|newLessonNum:{}",
                 lessonCode, studentCode, oldLessonNum, lessonAmount);
         return oldLessonNum;
+    }
+
+    /**
+     * 构建更新课时通知邮件.
+     *
+     * @param student 学员信息
+     * @param updateLessonNum 更新课时数量
+     * @param surplusLessonNum 剩余课时数量
+     * @param operate true-增加课时, false-扣减课时
+     * @return email对象
+     */
+    private Email buildUpdateLessonNumEmail(Student student, int updateLessonNum, int surplusLessonNum,
+                                            boolean operate) {
+        String operateName = operate ? "增加课时" : "扣减课时";
+
+        // 查询课时名称
+        String lessonName = lessonMapper.queryLessonName(student.getLessonCode());
+
+        Email email = new Email();
+        email.getReceiverList().add(student.getEmail());
+
+        // 构建邮件标题
+        StringBuilder titleBuilder = new StringBuilder();
+        titleBuilder.append("[通知]")
+                    .append(" 课程名称:").append(lessonName)
+                    .append("  ").append(operateName).append(":").append(updateLessonNum)
+                    .append("  剩余课时:").append(surplusLessonNum);
+
+        email.setTitle(titleBuilder.toString());
+
+        // 填充邮件内容
+        String contentFormat = String.format(NeoConst.context, operateName, lessonName, student.getName(),
+                updateLessonNum, surplusLessonNum);
+        email.setContent(contentFormat);
+        return email;
     }
 }

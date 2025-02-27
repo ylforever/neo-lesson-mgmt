@@ -15,3 +15,32 @@ spring:
    jdbcUrl: jdbc:postgresql://47.107.248.50:5432/postgres
    username: postgres
    password: neo
+
+ mail:
+   #smtp服务主机  qq邮箱则为smtp.qq.com
+   host: smtp.163.com
+
+   #smtp服务器端口(默认的25端口不能在生产环境使用)
+   port: 465
+
+   #服务协议
+   protocol: smtp
+   # 编码集
+   default-encoding: UTF-8
+   #发送邮件的账户
+   username: yzy4101@163.com
+   #授权码
+   password: GCcYjLdjmvCpKzSq
+   test-connection: true
+   properties:
+     mail:
+       smtp:
+         auth: true
+         starttls:
+           enable: true
+         ssl:
+           enable: true
+           trust: smtp.163.com
+         socketFactory:
+           class: javax.net.ssl.SSLSocketFactory
+     debug: true
