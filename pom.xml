@@ -96,6 +96,11 @@
             <version>2.0.0.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.elon</groupId>
             <artifactId>elon-base</artifactId>
             <version>1.0.1</version>

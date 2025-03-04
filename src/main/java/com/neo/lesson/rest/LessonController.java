@@ -48,7 +48,8 @@ public class LessonController extends BaseController {
     @ApiImplicitParam(name = "lesson", value = "课程")
     public ResultModel<String> insertLesson(@RequestBody Lesson lesson) {
         try {
-            lessonService.insertLesson(lesson);
+            String account = getUserAccount();
+            lessonService.insertLesson(lesson, account);
             return ResultModel.success(lesson.getLessonCode());
         } catch (Exception e) {
             LOGGER.error("Insert lesson fail. name:{}", lesson.getName() , e);
@@ -66,6 +67,7 @@ public class LessonController extends BaseController {
     public ResultModel<List<Lesson>> queryLessonList() {
         try {
             String account = getUserAccount();
+            LOGGER.info("account:{}", account);
 
             LOGGER.info("Invoke queryLessonList begin. account:{}", account);
             List<Lesson> lessonList = lessonService.queryLessonList(account);

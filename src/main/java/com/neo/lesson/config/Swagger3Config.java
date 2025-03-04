@@ -49,17 +49,11 @@ public class Swagger3Config {
      */
     private List<RequestParameter> buildGlobalHeaderParam() {
         List<RequestParameter> globalParamList = new ArrayList<>();
-        RequestParameter account = new RequestParameterBuilder().name("account")
+        RequestParameter account = new RequestParameterBuilder().name("jwt_token")
                 .in(ParameterType.HEADER)
                 .example(new ExampleBuilder().value("neo").build())
                 .build();
         globalParamList.add(account);
-
-        RequestParameter name = new RequestParameterBuilder().name("name")
-                .in(ParameterType.HEADER)
-                .example(new ExampleBuilder().value("neo").build())
-                .build();
-        globalParamList.add(name);
 
         return globalParamList;
     }

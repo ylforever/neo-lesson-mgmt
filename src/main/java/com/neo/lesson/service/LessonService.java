@@ -1,6 +1,5 @@
 package com.neo.lesson.service;
 
-import com.elon.base.model.PageResult;
 import com.elon.base.util.StringUtil;
 import com.neo.lesson.mapper.LessonMapper;
 import com.neo.lesson.model.Lesson;
@@ -25,11 +24,12 @@ public class LessonService {
      * 插入课程数据到数据库
      *
      * @param lesson 课程
+     * @param account 创建人账号
      * @return 分配的自增ID
      */
-    public int insertLesson(Lesson lesson) {
+    public int insertLesson(Lesson lesson, String account) {
         lesson.setLessonCode(StringUtil.generateUuid());
-        lesson.setCreateUser("neo");
+        lesson.setCreateUser(account);
         lesson.setCreateTime(new Date());
         lessonMapper.insertLesson(lesson);
         return lesson.getId();

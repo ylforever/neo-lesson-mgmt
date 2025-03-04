@@ -144,29 +144,6 @@ public class StudentService {
     }
 
     /**
-     * 更新剩余课时数量
-     *
-     * @param lessonCode 课程编码
-     * @param studentCode 学员编码
-     * @param lessonAmount 课时数量
-     * @return 更新前的课时数
-     */
-    private int updateSurplusLessonNum(String lessonCode, String studentCode, int lessonAmount) {
-        Student student = studentMapper.queryStudent(lessonCode, studentCode);
-        if (student == null) {
-            LOGGER.error("The student is not exist. lessonCode:{}|studentCode:{}", lessonCode, studentCode);
-            return -1;
-        }
-
-        int oldLessonNum = student.getSurplusLessonNum();
-        studentMapper.updateSurplusLessonNum(lessonCode, studentCode, lessonAmount);
-
-        LOGGER.info("Update lesson num success. lessonCode:{}|studentCode:{}|oldLessonNum:{}|newLessonNum:{}",
-                lessonCode, studentCode, oldLessonNum, lessonAmount);
-        return oldLessonNum;
-    }
-
-    /**
      * 构建更新课时通知邮件.
      *
      * @param student 学员信息
