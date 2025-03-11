@@ -6,7 +6,10 @@ package com.neo.lesson.constant;
  * @author neo
  * @since 2025-02-24
  */
-public class NeoConst {
+public class LessonMgMtConst {
+    // 程序工作路径
+    public static String WORK_PATH = System.getProperty("user.dir");
+
     // 构建邮件html内容
     public static String context = "<!DOCTYPE html>\n" +
             "<html lang=\"en\">\n" +

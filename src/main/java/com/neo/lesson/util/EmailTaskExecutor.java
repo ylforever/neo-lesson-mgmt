@@ -2,6 +2,7 @@ package com.neo.lesson.util;
 
 import com.elon.base.constant.EnumThreadTaskType;
 import com.elon.base.model.ThreadTaskBase;
+import com.elon.base.util.StringUtil;
 import com.neo.lesson.model.Email;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,8 +28,8 @@ public class EmailTaskExecutor extends ThreadTaskBase {
 
     private final Email email;
 
-    public EmailTaskExecutor(String taskId, JavaMailSender javaMailSender, Email email, String sender) {
-        super(taskId, EnumThreadTaskType.SEND_EMAIL_TYPE);
+    public EmailTaskExecutor(JavaMailSender javaMailSender, Email email, String sender) {
+        super(StringUtil.generateUuid(), EnumThreadTaskType.SEND_EMAIL_TYPE);
         this.javaMailSender = javaMailSender;
         this.sender = sender;
         this.email = email;

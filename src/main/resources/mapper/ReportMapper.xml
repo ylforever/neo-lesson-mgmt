@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neo.lesson.mapper.ReportMapper">
+    <!--插入报告数据-->
+    <insert id="insertReport" useGeneratedKeys="true" keyColumn="id" keyProperty="report.id">
+        INSERT INTO t_report (
+            file_id,
+            file_name,
+            file_path,
+            report_code,
+            state,
+            create_user,
+            create_time
+        ) VALUES (
+            #{report.fileId},
+            #{report.fileName},
+            #{report.FilePath},
+            #{report.reportCode},
+            #{report.state},
+            #{report.createUser},
+            #{report.createTime}
+        )
+    </insert>
+
+    <!--更新报告状态-->
+    <update id="updateReportState">
+        UPDATE t_report
+        SET state = #{state}
+        WHERE report_code = #{reportCode}
+    </update>
+
+    <!--获取报告对象-->
+    <resultMap id="reportResult" type="com.neo.lesson.model.Report">
+        <id property="id" column="id"/>
+        <result property="fileId"       column="file_id"/>
+        <result property="fileName"     column="file_name"/>
+        <result property="FilePath"     column="file_path"/>
+        <result property="reportCode"   column="report_code"/>
+        <result property="state"        column="state"/>
+        <result property="createUser"   column="create_user"/>
+        <result property="createTime"   column="create_time"/>
+        <result property="updateUser"   column="update_user"/>
+        <result property="updateTime"   column="update_time"/>
+    </resultMap>
+    <select id="getReportByCode" resultMap="reportResult">
+        SELECT id,
+            file_id,
+            file_name,
+            file_path,
+            report_code,
+            state,
+            create_user,
+            create_time,
+            update_user,
+            update_time
+        FROM t_report
+        WHERE report_code = #{reportCode}
+        LIMIT 1
+    </select>
+
+    <!--查询课程报告列表-->
+    <select id="getLessonReport" resultMap="reportResult">
+        SELECT id,
+            file_id,
+            file_name,
+            file_path,
+            report_code,
+            state,
+            create_user,
+            create_time,
+            update_user,
+            update_time
+        FROM t_report
+        WHERE create_user = #{account}
+        ORDER BY id ASC
+    </select>
+</mapper>

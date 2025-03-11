@@ -15,7 +15,11 @@ spring:
    jdbcUrl: jdbc:postgresql://47.107.248.50:5432/postgres
    username: postgres
    password: neo
-
+   hikari:
+     max-lifetime: 30000
+     idle-timeout: 10000  # 5分钟
+     validation-timeout: 5000
+     connection-test-query: SELECT 1
  mail:
    #smtp服务主机  qq邮箱则为smtp.qq.com
    host: smtp.163.com

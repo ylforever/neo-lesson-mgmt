@@ -37,12 +37,11 @@ public class EmailService {
      * @param email 邮件信息
      */
     public void sendMail(Email email){
-        String taskId = StringUtil.generateUuid();
         try {
-            EmailTaskExecutor emailTaskExecutor = new EmailTaskExecutor(taskId, javaMailSender, email, sender);
+            EmailTaskExecutor emailTaskExecutor = new EmailTaskExecutor(javaMailSender, email, sender);
             threadPoolUtils.executeTask(emailTaskExecutor);
         }catch (Exception e) {
-            LOGGER.error("Send email fail. taskId:{}", taskId, e);
+            LOGGER.error("Send email fail.", e);
         }
     }
 }

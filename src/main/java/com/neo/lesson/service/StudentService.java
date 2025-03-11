@@ -3,7 +3,7 @@ package com.neo.lesson.service;
 import com.elon.base.model.PageResult;
 import com.elon.base.model.PageVO;
 import com.elon.base.util.StringUtil;
-import com.neo.lesson.constant.NeoConst;
+import com.neo.lesson.constant.LessonMgMtConst;
 import com.neo.lesson.mapper.LessonMapper;
 import com.neo.lesson.mapper.StudentMapper;
 import com.neo.lesson.model.Email;
@@ -172,7 +172,7 @@ public class StudentService {
         email.setTitle(titleBuilder.toString());
 
         // 填充邮件内容
-        String contentFormat = String.format(NeoConst.context, operateName, lessonName, student.getName(),
+        String contentFormat = String.format(LessonMgMtConst.context, operateName, lessonName, student.getName(),
                 updateLessonNum, surplusLessonNum);
         email.setContent(contentFormat);
         return email;

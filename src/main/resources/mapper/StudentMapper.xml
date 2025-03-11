@@ -57,6 +57,7 @@
             update_time as update_time
         FROM t_student
         WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
+        LIMIT 1
     </select>
 
     <!--分页查询学员数量-->
