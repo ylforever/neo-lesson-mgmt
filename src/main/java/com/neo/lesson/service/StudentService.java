@@ -99,7 +99,7 @@ public class StudentService {
      * @param lessonAmount 扣减课时数量
      * @return 旧课时数量
      */
-    public int decreaseLessonNum(String lessonCode, String studentCode, int lessonAmount) {
+    public int decreaseLessonNum(String lessonCode, String studentCode, int lessonAmount, String account) {
         // 1、查询当前课时数量
         Student student = studentMapper.queryStudent(lessonCode, studentCode);
         if (student == null) {
@@ -108,7 +108,7 @@ public class StudentService {
         }
 
         int oldLessonNum = student.getSurplusLessonNum();
-        studentMapper.updateSurplusLessonNum(lessonCode, studentCode, oldLessonNum - lessonAmount);
+        studentMapper.updateSurplusLessonNum(lessonCode, studentCode, oldLessonNum - lessonAmount, account, new Date());
 
         // 2、发送邮件通知
         Email email = buildUpdateLessonNumEmail(student, lessonAmount, oldLessonNum - lessonAmount, false);
@@ -125,7 +125,7 @@ public class StudentService {
      * @param lessonAmount 扣减课时数量
      * @return 旧课时数量
      */
-    public int increaseLessonNum(String lessonCode, String studentCode, int lessonAmount) {
+    public int increaseLessonNum(String lessonCode, String studentCode, int lessonAmount, String account) {
         // 查询当前课时数量
         Student student = studentMapper.queryStudent(lessonCode, studentCode);
         if (student == null) {
@@ -134,7 +134,7 @@ public class StudentService {
         }
 
         int oldLessonNum = student.getSurplusLessonNum();
-        studentMapper.updateSurplusLessonNum(lessonCode, studentCode, oldLessonNum + lessonAmount);
+        studentMapper.updateSurplusLessonNum(lessonCode, studentCode, oldLessonNum + lessonAmount, account, new Date());
 
         // 发送通知邮件
         Email email = buildUpdateLessonNumEmail(student, lessonAmount, oldLessonNum + lessonAmount, true);

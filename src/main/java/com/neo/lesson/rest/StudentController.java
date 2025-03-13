@@ -136,16 +136,17 @@ public class StudentController extends BaseController {
     public ResultModel<Integer> decreaseLessonNum(@PathVariable("lessonCode") String lessonCode,
                                              @PathVariable("studentCode") String studentCode,
                                              @PathVariable("lessonAmount") int lessonAmount) {
+        String account = getUserAccount();
         try {
-            LOGGER.info("Invoke decreaseLessonNum begin. lessonCode:{}|studentCode:{}|lessonAmount:{}",
-                    lessonCode, studentCode, lessonAmount);
-            int oldLessonNum = studentService.decreaseLessonNum(lessonCode, studentCode, lessonAmount);
+            LOGGER.info("Invoke decreaseLessonNum begin. account:{}|lessonCode:{}|studentCode:{}|lessonAmount:{}",
+                    account, lessonCode, studentCode, lessonAmount);
+            int oldLessonNum = studentService.decreaseLessonNum(lessonCode, studentCode, lessonAmount, account);
 
-            LOGGER.info("Invoke decreaseLessonNum end. oldLessonNum:{}", oldLessonNum);
+            LOGGER.info("Invoke decreaseLessonNum end. account:{}oldLessonNum:{}", account, oldLessonNum);
             return ResultModel.success(oldLessonNum) ;
         } catch (Exception e) {
-            LOGGER.error("Decrease lesson num fail. lessonCode:{}|studentCode:{}|lessonAmount:{}",
-                    lessonCode, studentCode, lessonAmount, e);
+            LOGGER.error("Decrease lesson num fail. account:{}|lessonCode:{}|studentCode:{}|lessonAmount:{}",
+                    account, lessonCode, studentCode, lessonAmount, e);
             return ResultModel.fail("Decrease lesson num fail.");
         }
     }
@@ -168,16 +169,17 @@ public class StudentController extends BaseController {
     public ResultModel<Integer> increaseLessonNum(@PathVariable("lessonCode") String lessonCode,
                                                   @PathVariable("studentCode") String studentCode,
                                                   @PathVariable("lessonAmount") int lessonAmount) {
+        String account = getUserAccount();
         try {
-            LOGGER.info("Invoke increaseLessonNum begin. lessonCode:{}|studentCode:{}|lessonAmount:{}",
-                    lessonCode, studentCode, lessonAmount);
-            int oldLessonNum = studentService.increaseLessonNum(lessonCode, studentCode, lessonAmount);
+            LOGGER.info("Invoke increaseLessonNum begin. account:{}|lessonCode:{}|studentCode:{}|lessonAmount:{}",
+                    account, lessonCode, studentCode, lessonAmount);
+            int oldLessonNum = studentService.increaseLessonNum(lessonCode, studentCode, lessonAmount, account);
 
-            LOGGER.info("Invoke increaseLessonNum end. oldLessonNum:{}", oldLessonNum);
+            LOGGER.info("Invoke increaseLessonNum end. account:{}|oldLessonNum:{}", account, oldLessonNum);
             return ResultModel.success(oldLessonNum) ;
         } catch (Exception e) {
-            LOGGER.error("Increase lesson num fail. lessonCode:{}|studentCode:{}|lessonAmount:{}",
-                    lessonCode, studentCode, lessonAmount, e);
+            LOGGER.error("Increase lesson num fail. account:{}|lessonCode:{}|studentCode:{}|lessonAmount:{}",
+                    account, lessonCode, studentCode, lessonAmount, e);
             return ResultModel.fail("Increase lesson num fail.");
         }
     }

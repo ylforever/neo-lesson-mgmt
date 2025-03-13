@@ -55,4 +55,13 @@ public interface ReportMapper {
      * @since 2025/3/7
      */ 
     List<Report> getLessonReport(@Param("account") String account);
+
+    /** 
+     * 删除报告数据
+     *
+     * @param reportCode 报告编码
+     * @author neo
+     * @since 2025/3/11
+     */ 
+    void deleteReport(@Param("reportCode") String reportCode);
 }

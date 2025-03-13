@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +84,7 @@ public class ReportController extends BaseController {
      * @param response http响应
      */
     @GetMapping("/download-report/{reportCode}")
+    @ApiOperation(value = "下载报告")
     public void downloadReport(@PathVariable("reportCode") String reportCode, HttpServletResponse response) {
         try {
             LOGGER.info("Invoke downloadReport begin. reportCode:{}", reportCode);
@@ -90,6 +92,27 @@ public class ReportController extends BaseController {
             LOGGER.info("Invoke downloadReport end. reportCode:{}", reportCode);
         }catch (Exception e) {
             LOGGER.error("Invoke downloadReport fail. reportCode:{}", reportCode, e);
+        }
+    }
+
+    /**
+     * 删除报告
+     *
+     * @param reportCode 报告编码
+     * @return 处理结果
+     */
+    @DeleteMapping("/delete-report/{reportCode}")
+    @ApiOperation(value = "删除报告")
+    public ResultModel<String> deleteReport(@PathVariable("reportCode") String reportCode){
+        String account = getUserAccount();
+        try {
+            LOGGER.info("Invoke deleteReport begin. account:{}|reportCode:{}", account, reportCode);
+            reportService.deleteReport(reportCode);
+            LOGGER.info("Invoke deleteReport end. account:{}|reportCode:{}", account, reportCode);
+            return ResultModel.success("Delete report success.");
+        }catch (Exception e){
+            LOGGER.error("Invoke deleteReport fail. account:{}|reportCode:{}", account, reportCode, e);
+            return ResultModel.fail("Delete report fail.");
         }
     }
 }

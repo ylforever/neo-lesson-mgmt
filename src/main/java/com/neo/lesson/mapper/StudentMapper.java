@@ -4,6 +4,7 @@ import com.neo.lesson.model.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,7 +65,10 @@ public interface StudentMapper {
      * @param lessonCode 课程编码
      * @param studentCode 学员编码
      * @param lessonAmount 课时数量
+     * @param updateUser 更新账号
+     * @param updateTime 更新时间
      */
     void updateSurplusLessonNum(@Param("lessonCode") String lessonCode, @Param("studentCode") String studentCode,
-                                @Param("lessonAmount") int lessonAmount);
+                                @Param("lessonAmount") int lessonAmount, @Param("updateUser") String updateUser,
+                                @Param("updateTime")Date updateTime);
 }

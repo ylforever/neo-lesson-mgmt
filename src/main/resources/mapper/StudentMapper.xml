@@ -81,13 +81,18 @@
     <!--删除课程下的学员数据-->
     <delete id="deleteStudent">
         DELETE FROM t_student
-        WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
+        WHERE lesson_code = #{lessonCode}
+        <if test="studentCode != null">
+            AND student_code = #{studentCode}
+        </if>
     </delete>
 
     <!--更新剩余课时数量-->
     <update id="updateSurplusLessonNum">
         UPDATE t_student
-        SET surplus_lesson_num = #{lessonAmount}
+        SET surplus_lesson_num = #{lessonAmount},
+            update_user = #{updateUser},
+            update_time = #{updateTime}
         WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
     </update>
 </mapper>

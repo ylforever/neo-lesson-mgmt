@@ -2,6 +2,7 @@ package com.neo.lesson.service;
 
 import com.elon.base.util.StringUtil;
 import com.neo.lesson.mapper.LessonMapper;
+import com.neo.lesson.mapper.StudentMapper;
 import com.neo.lesson.model.Lesson;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,9 @@ import java.util.List;
 public class LessonService {
     @Resource
     private LessonMapper lessonMapper;
+
+    @Resource
+    private StudentMapper studentMapper;
 
     /**
      * 插入课程数据到数据库
@@ -51,6 +55,7 @@ public class LessonService {
      * @param lessonCode 课程编码
      */
     public void deleteLesson(String lessonCode) {
+        studentMapper.deleteStudent(lessonCode, null);
         lessonMapper.deleteLesson(lessonCode);
     }
 }

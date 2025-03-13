@@ -74,4 +74,11 @@
         WHERE create_user = #{account}
         ORDER BY id ASC
     </select>
+
+    <!--删除报告数据-->
+    <delete id="deleteReport">
+        DELETE FROM t_report
+        WHERE report_code = #{reportCode}
+    </delete>
+
 </mapper>

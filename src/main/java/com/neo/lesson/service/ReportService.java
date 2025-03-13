@@ -15,6 +15,7 @@ import com.neo.lesson.model.Report;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -86,11 +87,28 @@ public class ReportService {
      */
     public void downloadReport(String reportCode, HttpServletResponse response) {
         Report report = reportMapper.getReportByCode(reportCode);
-
         String fileLocalPath = LessonMgMtConst.WORK_PATH + report.getFilePath();
 
         LOGGER.info("Download file path:{}", fileLocalPath);
         FileUtil.downloadLocalFile(fileLocalPath, report.getFileName(), response);
+    }
+
+    /**
+     * 删除报告
+     *
+     * @param reportCode 报告编码
+     * @author neo
+     * @since 2025/3/11
+     */
+    public void deleteReport(String reportCode){
+        Report report = reportMapper.getReportByCode(reportCode);
+        String fileLocalPath = LessonMgMtConst.WORK_PATH + report.getFilePath();
+
+        // 1、删除报告数据
+        reportMapper.deleteReport(reportCode);
+
+        // 2、删除报告文件
+        FileUtil.deleteFile(fileLocalPath);
     }
 
     /**
