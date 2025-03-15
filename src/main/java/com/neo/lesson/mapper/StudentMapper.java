@@ -1,5 +1,6 @@
 package com.neo.lesson.mapper;
 
+import com.elon.base.model.MapQueryHelper;
 import com.neo.lesson.model.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -71,4 +72,14 @@ public interface StudentMapper {
     void updateSurplusLessonNum(@Param("lessonCode") String lessonCode, @Param("studentCode") String studentCode,
                                 @Param("lessonAmount") int lessonAmount, @Param("updateUser") String updateUser,
                                 @Param("updateTime")Date updateTime);
+
+    /**
+     * 查询课程总的剩余课时
+     *
+     * @param lessonCodeList 课程编码列表
+     * @return 查询结果
+     * @author neo
+     * @since 2025/3/13
+     */
+    List<MapQueryHelper<String, Long>> queryLessonTotalNum(@Param("lessonCodeList") List<String> lessonCodeList);
 }

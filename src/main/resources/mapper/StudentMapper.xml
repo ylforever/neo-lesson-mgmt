@@ -95,4 +95,20 @@
             update_time = #{updateTime}
         WHERE lesson_code = #{lessonCode} AND student_code = #{studentCode}
     </update>
+
+    <!--查询课程的总剩余课时-->
+    <resultMap id="lessonNumMap" type="com.elon.base.model.MapQueryHelper">
+        <result property="key" column="lesson_code"/>
+        <result property="value" column="totalLessonNum"/>
+    </resultMap>
+    <select id="queryLessonTotalNum" resultMap="lessonNumMap">
+        SELECT lesson_code as lesson_code,
+               Sum(surplus_lesson_num) as totalLessonNum
+        FROM t_student
+        WHERE lesson_code IN
+        <foreach collection="lessonCodeList" item="code" open="(" close=")" separator=",">
+            #{code}
+        </foreach>
+        GROUP BY lesson_code
+    </select>
 </mapper>

@@ -27,4 +27,10 @@ public class Lesson extends BaseModel {
 
     @ApiModelProperty(value = "备注")
     private String remark = "";
+
+    @ApiModelProperty(value = "指导老师")
+    private String director = "";
+
+    @ApiModelProperty(value = "总剩余课时")
+    private int totalLessonNum = 0;
 }

@@ -7,12 +7,14 @@
             lesson_code,
             name,
             remark,
+            director,
             create_user,
             create_time
         ) VALUES (
             #{lesson.lessonCode},
             #{lesson.name},
             #{lesson.remark},
+            #{lesson.director},
             #{lesson.createUser},
             #{lesson.createTime}
         )
@@ -29,6 +31,7 @@
         <result property="lessonCode"   column="lesson_code"/>
         <result property="name"         column="name"/>
         <result property="remark"       column="remark"/>
+        <result property="director"     column="director"/>
         <result property="createUser"   column="create_user"/>
         <result property="createTime"   column="create_time"/>
         <result property="updateUser"   column="update_user"/>
@@ -40,12 +43,13 @@
             lesson_code,
             name,
             remark,
+            director,
             create_user,
             create_time,
             update_user,
             update_time
         FROM t_lesson
-        WHERE create_user = #{userAccount}
+        WHERE create_user = #{userAccount} OR director = #{userAccount}
         ORDER BY id ASC
     </select>
 
