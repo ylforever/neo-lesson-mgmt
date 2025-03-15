@@ -90,7 +90,7 @@ public class ReportService {
         String fileLocalPath = LessonMgMtConst.WORK_PATH + report.getFilePath();
 
         LOGGER.info("Download file path:{}", fileLocalPath);
-        FileUtil.downloadLocalFile(fileLocalPath, report.getFileName(), response);
+        FileUtil.downloadLocalFile(fileLocalPath, report.getFileName() + NeoConst.EXCEL_SUFFIX, response);
     }
 
     /**
