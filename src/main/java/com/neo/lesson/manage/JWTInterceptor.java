@@ -30,6 +30,9 @@ public class JWTInterceptor implements HandlerInterceptor {
             LOGGER.error("Verify token fail.", e);
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().println("Token is valid");
+
+            // 设置为没有权限，前端拿到响应码需跳转到登录页面
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
     }

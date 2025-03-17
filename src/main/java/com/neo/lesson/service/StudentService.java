@@ -164,7 +164,7 @@ public class StudentService {
 
         // 构建邮件标题
         StringBuilder titleBuilder = new StringBuilder();
-        titleBuilder.append("[通知]")
+        titleBuilder.append("[课时小管家]")
                     .append(" 课程名称:").append(lessonName)
                     .append("  ").append(operateName).append(":").append(updateLessonNum)
                     .append("  剩余课时:").append(surplusLessonNum);

@@ -46,14 +46,12 @@ public class LessonMgMtConst {
             "            <th>学员姓名</th>\n" +
             "            <th>%s</th>\n" +
             "            <th>剩余课时</th>\n" +
-            "            <th>操作员</th>\n" +
             "        </tr>\n" +
             "        <tr>\n" +
             "            <td>%s</td>\n" +
             "            <td>%s</td>\n" +
             "            <td>%d</td>\n" +
             "            <td>%d</td>\n" +
-            "            <td>neo</td>\n" +
             "        </tr>\n" +
             "    </table>\n" +
             "</body>\n" +
