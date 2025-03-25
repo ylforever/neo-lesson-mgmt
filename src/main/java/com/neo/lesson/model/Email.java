@@ -32,6 +32,11 @@ public class Email {
     private List<String> receiverList = new ArrayList<>();
 
     /**
+     * 密送人列表
+     */
+    private List<String> bccList = new ArrayList<>();
+
+    /**
      * 邮件付件列表
      */
     private List<File> attachFileList = new ArrayList<>();

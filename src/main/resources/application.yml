@@ -46,3 +46,8 @@ spring:
          socketFactory:
            class: javax.net.ssl.SSLSocketFactory
      debug: true
+
+# 系统自定义参数
+neo:
+  jwt:
+    secret: neo

@@ -22,6 +22,7 @@
         SET verify_code = #{loginUser.verifyCode},
             update_user = #{loginUser.updateUser},
             update_time = #{loginUser.updateTime}
+        WHERE account = #{loginUser.account}
     </update>
 
     <!--查询用户的校验码-->

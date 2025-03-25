@@ -26,13 +26,6 @@ public interface LessonMapper {
     void insertLesson(@Param("lesson") Lesson lesson);
 
     /**
-     * 查询课程数量
-     *
-     * @return 课程数量
-     */
-    int queryLessonAmount();
-
-    /**
      * 分页查询课程数据
      *
      * @param userAccount 用户账号
@@ -62,4 +55,14 @@ public interface LessonMapper {
      * @return 课程名称
      */
     String queryLessonName(@Param("lessonCode") String lessonCode);
+    
+    /** 
+     * 根据课程编码查询课程
+     *
+     * @param lessonCode 课程编码
+     * @return 课程对象
+     * @author neo
+     * @since 2025/3/24
+     */ 
+    Lesson queryLessonByCode(@Param("lessonCode") String lessonCode);
 }

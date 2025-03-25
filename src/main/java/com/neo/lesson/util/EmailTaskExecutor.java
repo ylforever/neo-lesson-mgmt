@@ -46,8 +46,8 @@ public class EmailTaskExecutor extends ThreadTaskBase {
             helper.setFrom(sender);
 
             //谁要接收
-            String[] receivers = email.getReceiverList().toArray(new String[0]);
-            helper.setTo(receivers);
+            helper.setTo(email.getReceiverList().toArray(new String[0]));
+            helper.setBcc(email.getBccList().toArray(new String[0]));
 
             //邮件标题
             helper.setSubject(email.getTitle());

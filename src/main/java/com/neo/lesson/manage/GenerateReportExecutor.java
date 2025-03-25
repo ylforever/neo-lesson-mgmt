@@ -104,6 +104,9 @@ public class GenerateReportExecutor extends ThreadTaskBase {
                 // 学员电子邮箱
                 rowDataList.add(student.getEmail());
 
+                // 指导老师
+                rowDataList.add(lesson.getDirector());
+
                 excelDataList.add(rowDataList);
             }
         }

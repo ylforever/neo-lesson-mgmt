@@ -7,6 +7,7 @@ import com.neo.lesson.constant.LessonMgMtConst;
 import com.neo.lesson.mapper.LessonMapper;
 import com.neo.lesson.mapper.StudentMapper;
 import com.neo.lesson.model.Email;
+import com.neo.lesson.model.Lesson;
 import com.neo.lesson.model.Student;
 import com.neo.lesson.model.StudentVO;
 import com.neo.lesson.util.EmailService;
@@ -68,7 +69,7 @@ public class StudentService {
         int offset = (pageVO.getPageNo() - 1) * pageVO.getAmount();
         List<Student> studentList = studentMapper.queryStudentByPage(pageVO.getAmount(), offset, lessonCode);
 
-        // 3、查询课程编码与名称的对应关系
+        // 3、查询课程名称
         String lessonName = lessonMapper.queryLessonName(lessonCode);
 
         List<StudentVO> voList = new ArrayList<>();
@@ -156,23 +157,25 @@ public class StudentService {
                                             boolean operate) {
         String operateName = operate ? "增加课时" : "扣减课时";
 
-        // 查询课时名称
-        String lessonName = lessonMapper.queryLessonName(student.getLessonCode());
+        // 查询课程
+        Lesson lesson = lessonMapper.queryLessonByCode(student.getLessonCode());
 
+        // 设置邮件接收人和密送人
         Email email = new Email();
         email.getReceiverList().add(student.getEmail());
+        email.getBccList().add(lesson.getCreateUser());
 
         // 构建邮件标题
         StringBuilder titleBuilder = new StringBuilder();
         titleBuilder.append("[课时小管家]")
-                    .append(" 课程名称:").append(lessonName)
+                    .append(" 课程名称:").append(lesson.getName())
                     .append("  ").append(operateName).append(":").append(updateLessonNum)
                     .append("  剩余课时:").append(surplusLessonNum);
 
         email.setTitle(titleBuilder.toString());
 
         // 填充邮件内容
-        String contentFormat = String.format(LessonMgMtConst.context, operateName, lessonName, student.getName(),
+        String contentFormat = String.format(LessonMgMtConst.context, operateName, lesson.getName(), student.getName(),
                 updateLessonNum, surplusLessonNum);
         email.setContent(contentFormat);
         return email;

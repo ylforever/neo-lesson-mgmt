@@ -20,11 +20,6 @@
         )
     </insert>
 
-    <!--查询课程数量-->
-    <select id="queryLessonAmount" resultType="java.lang.Integer">
-        SELECT count(1) as num FROM t_lesson
-    </select>
-
     <!--查询课程列表-->
     <resultMap id="lessonResult" type="com.neo.lesson.model.Lesson">
         <id property="id"               column="id"/>
@@ -51,6 +46,21 @@
         FROM t_lesson
         WHERE create_user = #{userAccount} OR director = #{userAccount}
         ORDER BY id ASC
+    </select>
+
+    <!--根据课程编码查询课程-->
+    <select id="queryLessonByCode" resultMap="lessonResult">
+        SELECT id,
+            lesson_code,
+            name,
+            remark,
+            director,
+            create_user,
+            create_time,
+            update_user,
+            update_time
+            FROM t_lesson
+        WHERE lesson_code = #{lessonCode}
     </select>
 
     <!--删除课程-->
