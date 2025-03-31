@@ -52,8 +52,9 @@ public class StudentController extends BaseController {
     @ApiImplicitParam(name = "student", value = "学员信息")
     public ResultModel<String> insertStudent(@RequestBody Student student) {
         try {
-            LOGGER.info("Invoke insertStudent begin. student:{}", student.toString());
-            studentService.insertStudent(student);
+            String account = getUserAccount();
+            LOGGER.info("Invoke insertStudent begin. account:{}|student:{}", account, student.toString());
+            studentService.insertStudent(student, account);
             LOGGER.info("Invoke insertStudent end. student code:{}", student.getStudentCode());
             return ResultModel.success(student.getStudentCode());
         } catch (Exception e) {

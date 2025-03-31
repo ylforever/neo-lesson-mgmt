@@ -43,12 +43,13 @@ public class StudentService {
      * 插入学员数据到数据库
      *
      * @param student 学员信息
+     * @param account 账号
      * @author neo
      * @since 2025-02-12
      */
-    public void insertStudent(Student student) {
+    public void insertStudent(Student student, String account) {
         student.setStudentCode(StringUtil.generateUuid());
-        student.setCreateUser("neo");
+        student.setCreateUser(account);
         student.setCreateTime(new Date());
         studentMapper.insertStudent(student);
     }
