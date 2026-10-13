@@ -103,7 +103,7 @@ public class LoginService {
 
         // 构建邮件标题
         StringBuilder titleBuilder = new StringBuilder();
-        titleBuilder.append("[课时小管家]").append(" 系统登录验证码:").append(verifyCode);
+        titleBuilder.append("[沪教版英语课本指读]").append(" 系统登录验证码:").append(verifyCode);
 
         email.setTitle(titleBuilder.toString());
         return email;
